@@ -129,7 +129,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         onSelectionChange = {cobaViewModel.setJenisK(it)})
     Button(
         modifier = Modifier.fillMaxWidth(),
-        onClick = { cobaViewModel.insertData(textNama, textTlp, dataForm.sex)
+        onClick = { cobaViewModel.insertData(textNama, textTlp, dataForm.sex,textAlmt)
     }
     ) {
         Text(text = stringResource(com.example.pertemuan5_buildgradlle.R.string.submit))
@@ -178,19 +178,19 @@ fun TextHasil(namanya: String, telponnya: String,jenisnya: String,alamat: String
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Text(text = "Nama : " + namanya,
+        Text(text = "Nama : $namanya",
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 4.dp)
         )
-        Text(text = "Telepon : " + telponnya,
+        Text(text = "Telepon : $telponnya",
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
-        Text(text = "Jenis Kelamin : " + jenisnya,
+        Text(text = "Jenis Kelamin : $jenisnya",
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
-        Text(text = "alamat : " + alamat,
+        Text(text = "alamat : $alamat",
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
