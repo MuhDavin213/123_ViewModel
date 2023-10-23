@@ -3,13 +3,18 @@ package com.example.pertemuan5_buildgradlle
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,13 +34,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pertemuan5_buildgradlle.Data.DataForm
+import com.example.pertemuan5_buildgradlle.Data.DataSource.jenis
 import com.example.pertemuan5_buildgradlle.ui.theme.CobaViewModel
 import com.example.pertemuan5_buildgradlle.ui.theme.Pertemuan5_BuildGradlleTheme
+
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,10 +57,28 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    TampilLayout()
                 }
             }
         }
+    }
+}
+
+@Composable
+fun TampilLayout(modifier: Modifier = Modifier
+){
+    Card(
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
+    ){
+            Column(
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(20.dp)
+            ) {
+                TampilForm()
+
+            }
     }
 }
 
@@ -83,6 +111,19 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
             textTlp = it
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+    )
+    SelectJK(
+        options = jenis.map { id -> context.resources.getString(id) },
+        onSelectionChange = {cobaViewModel.setJenisK(it)})
+    Button(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { cobaViewModel.insertData(textNama, textTlp, dataForm.sex)
+    }
+    ) {
+        
+    }
+    Spacer(modifier = Modifier.height(100.dp))
+    TextHasil(namanya = cobaViewModel.namaUsr, telponnya = cobaViewModel.noTlp, jenisnya =cobaViewModel.jenisKl
     )
 }
 
@@ -141,18 +182,11 @@ fun TextHasil(namanya: String, telponnya: String,jenisnya: String){
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    Pertemuan5_BuildGradlleTheme {
-        Greeting("Android")
+    Pertemuan5_BuildGradlleTheme{
+        TampilLayout()
     }
 }
