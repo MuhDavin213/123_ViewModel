@@ -37,6 +37,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -44,7 +45,7 @@ import com.example.pertemuan5_buildgradlle.Data.DataForm
 import com.example.pertemuan5_buildgradlle.Data.DataSource.jenis
 import com.example.pertemuan5_buildgradlle.ui.theme.CobaViewModel
 import com.example.pertemuan5_buildgradlle.ui.theme.Pertemuan5_BuildGradlleTheme
-
+import org.w3c.dom.Text
 
 
 class MainActivity : ComponentActivity() {
@@ -89,6 +90,8 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         mutableStateOf("")}
     var textTlp by remember {
         mutableStateOf("")}
+    var textAlmt by remember {
+        mutableStateOf("")}
 
     val  context = LocalContext.current
     val dataForm: DataForm
@@ -106,11 +109,20 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     OutlinedTextField(value = textTlp,
         shape = MaterialTheme.shapes.large,
         modifier = Modifier.fillMaxWidth(),
-        label = { Text(text = "Nama Lengkap")},
+        label = { Text(text = "No Telpon")},
         onValueChange = {
             textTlp = it
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+    )
+    OutlinedTextField(
+        value = textAlmt,
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Alamat")},
+        onValueChange = {
+            textAlmt = it
+        }
     )
     SelectJK(
         options = jenis.map { id -> context.resources.getString(id) },
@@ -120,10 +132,10 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
         onClick = { cobaViewModel.insertData(textNama, textTlp, dataForm.sex)
     }
     ) {
-        
+        Text(text = stringResource(com.example.pertemuan5_buildgradlle.R.string.submit))
     }
     Spacer(modifier = Modifier.height(100.dp))
-    TextHasil(namanya = cobaViewModel.namaUsr, telponnya = cobaViewModel.noTlp, jenisnya =cobaViewModel.jenisKl
+    TextHasil(namanya = cobaViewModel.namaUsr, telponnya = cobaViewModel.noTlp, jenisnya =cobaViewModel.jenisKl, alamat = cobaViewModel.almt,
     )
 }
 
@@ -158,7 +170,7 @@ fun SelectJK(
 }
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String,jenisnya: String){
+fun TextHasil(namanya: String, telponnya: String,jenisnya: String,alamat: String){
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -175,6 +187,10 @@ fun TextHasil(namanya: String, telponnya: String,jenisnya: String){
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
         Text(text = "Jenis Kelamin : " + jenisnya,
+            modifier = Modifier
+                .padding(horizontal = 10.dp, vertical = 5.dp)
+        )
+        Text(text = "alamat : " + alamat,
             modifier = Modifier
                 .padding(horizontal = 10.dp, vertical = 5.dp)
         )
