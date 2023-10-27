@@ -3,6 +3,7 @@ package com.example.pertemuan5_buildgradlle
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -104,7 +105,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     val uiState by cobaViewModel.uiState.collectAsState()
     dataForm = uiState
 
-    Row (modifier = Modifier.fillMaxWidth(),){
+    Row (){
         Text(text = "Register")
     }
     Column(modifier = Modifier.padding(0.dp)) {
@@ -169,7 +170,7 @@ fun SelectJK(
     var  selectedValue by rememberSaveable {
         mutableStateOf("") }
 
-    Row(modifier = Modifier.padding(16.dp)) {
+    Row(modifier = Modifier.padding(16.dp),) {
         options.forEach { item ->
             Row (modifier = Modifier.selectable(
                 selected = selectedValue == item,
@@ -189,6 +190,14 @@ fun SelectJK(
                 )
                 Text(item)
             }
+            Column {
+                RadioButton(selected = selectedValue == item, onClick = {selectedValue = item
+                    onSelectionChange(item)
+                }
+                )
+                Text(item)
+
+            }
         }
 
     }
@@ -202,6 +211,7 @@ fun TextHasil(namanya: String, telponnya: String,jenisnya: String,alamat: String
         ),
         modifier = Modifier
             .fillMaxWidth()
+            .background(color = Color.Gray)
     ) {
         Text(text = "Nama : $namanya",
             modifier = Modifier
