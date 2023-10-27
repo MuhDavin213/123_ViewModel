@@ -104,7 +104,14 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()){
     val uiState by cobaViewModel.uiState.collectAsState()
     dataForm = uiState
 
+    Row (modifier = Modifier.fillMaxWidth(),){
+        Text(text = "Register")
+    }
+    Column(modifier = Modifier.padding(0.dp)) {
+        Divider(
+        )
 
+    }
     Row (modifier = Modifier.padding(10.dp)){
         Text(text = "Create Your Account", fontWeight = FontWeight.Bold)
 
